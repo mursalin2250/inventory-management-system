@@ -59,7 +59,11 @@ export const accessTokenService = async (refreshToken) => {
     return newAccessToken;
 }
 
-export const getUserService = async () => {
-
+export const getUserService = async (data) => {
+    const user = await userModel.findOne({$or : [{name: data.name}, {username: data.username}, {email: data.email}]});
+    if(!user){
+        throw new Error("User not found!");
+    }
+    return user;
 }
 

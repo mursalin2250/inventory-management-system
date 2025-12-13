@@ -12,7 +12,6 @@ export const authenticate = (req,res,next) => {
     try {
         const decode = jwt.verify(token, JWT_SECRET);
         req.user = decode;
-        console.log(req.user);
         next();
     } catch (error) {
         console.log(error);
@@ -20,7 +19,7 @@ export const authenticate = (req,res,next) => {
     }
 }
 
-export const authorize = async (req,res,next) => {
+export const authorizeAdmin = async (req,res,next) => {
     const role = await req.user.role;
     try {
         if(role === "admin"){

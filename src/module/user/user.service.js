@@ -60,10 +60,27 @@ export const accessTokenService = async (refreshToken) => {
 }
 
 export const getUserService = async (data) => {
-    const user = await userModel.findOne({$or : [{name: data.name}, {username: data.username}, {email: data.email}]});
+    const user = await userModel.findOne({$or : [{username: data.username}, {email: data.email}]});
     if(!user){
         throw new Error("User not found!");
     }
+
+    const returnUser = user.toObject();
+    delete returnUser.__v;
+    delete returnUser.password;
+    delete returnUser.refreshtoken;
+    delete returnUser.role;
+
+    return returnUser;
+}
+
+export const updateUserService = async (filter, data) => {
+    const user = await userModel.findOneAndUpdate({$or : [{username: filter.username}, {email: filter.email}]}, data, {new: true});
+    if(!user) {
+        throw new Error("User not found!");
+    }
+
     return user;
 }
+
 

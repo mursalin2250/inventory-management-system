@@ -14,6 +14,9 @@ app.get("/", (req,res) => {
 
 app.use("/api", appRoutes);
 
+
+
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });

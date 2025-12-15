@@ -24,9 +24,9 @@ export const refreshToken = (id) => {
     return refreshToken;
 };
 
-export const verifyToken = (refreshToken) => {
+export const verifyToken = (token) => {
     try {
-        const verify = jwt.verify(refreshToken, JWT_SECRET);
+        const verify = jwt.verify(token, JWT_SECRET);
         return verify;
     } catch (error) {
         throw new Error("Invalid or expired token");

@@ -83,4 +83,24 @@ export const updateUserService = async (filter, data) => {
     return user;
 }
 
+export const changePasswordService = async (token,data) => {
+    const user = await userModel.findById(token);
+    const {currentPassword, newPassword, confirmPassword} = data;
+    
+    if(!user){
+        throw new Error("User not found!");
+    }
 
+    const verifyPassword = await comparePassword(currentPassword, user.password);
+    if(!verifyPassword){
+        throw new Error("Incorrect Password!");
+    }
+
+    if(newPassword !== confirmPassword){
+        throw new Error("Password didn't match");
+    }
+
+    const newHashPassword = await hashPassword(newPassword);
+    user.password = newHashPassword;
+    await user.save();
+}

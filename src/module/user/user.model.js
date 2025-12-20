@@ -26,10 +26,16 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        enum: ["user", "supplier", "manager", "staff"],
+        enum: ["user", "manager", "staff"],
     },
     refreshtoken: {
         type: String
+    },
+    otp:{
+        type: String
+    },
+    otpExpireTime:{
+        type: Date
     }
 
 }, {timestamps: true});

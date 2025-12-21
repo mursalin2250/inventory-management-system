@@ -24,13 +24,10 @@ export const createUserService = async (data) => {
 
 export const loginUserService = async (data) => {
     const user = await userModel.findOne({$or: [{username: data.username}, {email: data.email}]});
-    if(!user){
-        throw new Error("Invalid Credentials");
-    }
-    const isMatch = await comparePassword(data.password, user.password);
-    if(!isMatch){
-        throw new Error("Invalid Credentials");
-    }
+    
+    if(!user) throw new Error("Invalid Credentials");
+    
+    await comparePassword(data.password, user.password);
     
     const newAccessToken = accessToken(user._id, user.username, user.role);
     const newRefreshToken = refreshToken(user._id);
@@ -50,9 +47,7 @@ export const accessTokenService = async (refreshToken) => {
     const token = verifyToken(refreshToken);
     const user = await userModel.findById(token.id);
 
-    if(!user || user.refreshtoken !== refreshToken){
-        throw new Error("Invalid user token!");
-    };
+    if(!user || user.refreshtoken !== refreshToken) throw new Error("Invalid user token!");
 
     const newAccessToken = accessToken(user.id, user.username, user.role);
 
@@ -61,9 +56,7 @@ export const accessTokenService = async (refreshToken) => {
 
 export const getUserService = async (data) => {
     const user = await userModel.findOne({$or : [{username: data.username}, {email: data.email}]});
-    if(!user){
-        throw new Error("User not found!");
-    }
+    if(!user) throw new Error("User not found!");
 
     const returnUser = user.toObject();
     delete returnUser.__v;
@@ -74,33 +67,69 @@ export const getUserService = async (data) => {
     return returnUser;
 }
 
+export const getAllUsersService = async () => {
+    const users = await userModel.find();
+    let user = {};
+    let i = 0;
+    while( i < users.length ) {
+        const element = users[i];
+        const newUsers = element.toObject();
+        
+        delete newUsers.__v;
+        delete newUsers.password;
+        delete newUsers.refreshtoken;
+        delete newUsers.role;
+
+        user[i+1``] = element;
+        i++;
+    };
+    return user;
+}
+
 export const updateUserService = async (filter, data) => {
     const user = await userModel.findOneAndUpdate({$or : [{username: filter.username}, {email: filter.email}]}, data, {new: true});
-    if(!user) {
-        throw new Error("User not found!");
-    }
+    if(!user) throw new Error("User not found!");
 
     return user;
 }
 
-export const changePasswordService = async (token,data) => {
-    const user = await userModel.findById(token);
+export const changePasswordService = async (user_id,data) => {
+    const user = await userModel.findById(user_id);
     const {currentPassword, newPassword, confirmPassword} = data;
     
     if(!user){
-        throw new Error("User not found!");
+        throw new Error("Invalid User!");
     }
 
-    const verifyPassword = await comparePassword(currentPassword, user.password);
-    if(!verifyPassword){
-        throw new Error("Incorrect Password!");
-    }
+    await comparePassword(currentPassword, user.password);
 
     if(newPassword !== confirmPassword){
-        throw new Error("Password didn't match");
+        throw new Error("Passwords didn't match");
     }
 
     const newHashPassword = await hashPassword(newPassword);
     user.password = newHashPassword;
     await user.save();
+}
+
+export const deleteUserService = async (user_id, data) => {
+    const user = await userModel.findOne({_id: user_id});
+
+    if(!user){
+        throw new Error("User not found!");
+    }
+
+    await comparePassword(data.password, data.confirmPassword);
+
+    const deletedUser = await userModel.findOneAndDelete(user_id);
+    console.log(deletedUser)
+    
+    const deleteUser = deletedUser.toObject();
+        
+    delete deleteUser.__v;
+    delete deleteUser.password;
+    delete deleteUser.refreshtoken;
+    delete deleteUser.role;
+
+    return deleteUser;
 }

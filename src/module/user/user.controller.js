@@ -1,4 +1,4 @@
-import { accessTokenService, changePasswordService, createUserService, getUserService, loginUserService, updateUserService } from "./user.service.js";
+import { accessTokenService, changePasswordService, createUserService, deleteUserService, getAllUsersService, getUserService, loginUserService, updateUserService } from "./user.service.js";
 
 export const createUser = async (req,res) => {
     try {
@@ -40,6 +40,17 @@ export const getUser = async (req,res) => {
     }
 }
 
+export const getAllUsers = async (req,res) => {
+    try {
+        
+        const users = await getAllUsersService();
+        res.status(200).json(users);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message: error.message});
+    }
+}
+
 export const updateUser = async (req,res) => {
     try {
         const updatedUser = await updateUserService(req.query, req.body);
@@ -60,4 +71,13 @@ export const changePassword = async (req,res) => {
     }
 }
 
+export const deleteUser = async (req,res) => {
+    try {
+        const deletedUser = await deleteUserService(req.user.id, req.body);
+        res.status(200).json({message: "User deleted successfully!", deletedUser});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+}
 

@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        enum: ["user", "manager", "staff"],
+        enum: ["admin", "user", "manager", "staff"],
     },
     refreshtoken: {
         type: String
@@ -43,3 +43,4 @@ const userSchema = new mongoose.Schema({
 const user = mongoose.model("User", userSchema);
 
 export default user;
+ 

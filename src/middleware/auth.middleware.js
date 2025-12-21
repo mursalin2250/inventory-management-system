@@ -35,7 +35,7 @@ export const authorize = async (req,res,next) => {
 
 export const authorizeAdmin = async (req,res,next) => {
     const role = await req.user.role;
-    console.log(role)
+    
     try {
         if(role === "admin"){
             next();

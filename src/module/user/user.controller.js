@@ -1,4 +1,13 @@
-import { accessTokenService, changePasswordService, createUserService, deleteUserService, getAllUsersService, getUserService, loginUserService, updateUserService } from "./user.service.js";
+import { 
+    accessTokenService, 
+    changePasswordService, 
+    createUserService, 
+    deleteUserService, 
+    getAllUsersService, 
+    getUserService, 
+    loginUserService, 
+    updateUserService 
+} from "./user.service.js";
 
 export const createUser = async (req,res) => {
     try {

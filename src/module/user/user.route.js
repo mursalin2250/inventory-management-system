@@ -1,6 +1,21 @@
 import express from "express";
-import { createUser, loginUser, getUser, getAccessToken, updateUser, changePassword, getAllUsers, deleteUser } from "./user.controller.js";
-import { authenticate, authorize, authorizeAdmin } from "../../middleware/auth.middleware.js";
+
+import { 
+    createUser, 
+    loginUser, 
+    getUser, 
+    getAccessToken, 
+    updateUser, 
+    changePassword, 
+    getAllUsers, 
+    deleteUser 
+} from "./user.controller.js";
+
+import { 
+    authenticate, 
+    authorize, 
+    authorizeAdmin 
+} from "../../middleware/auth.middleware.js";
 
 const router = express.Router();
 

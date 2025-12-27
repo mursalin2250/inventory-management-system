@@ -2,12 +2,12 @@ import categoryModel from "./category.model.js";
 
 export const createCategoryService = async (data) => {
 
-    const category = await categorytModel.findOne({sku: data.sku});
+    const category = await categoryModel.findOne({code: data.code});
     
     if(category) {
         throw new Error("Category already exists!");
     }
-    const newCategory = await CategoryModel.create(data);
+    const newCategory = await categoryModel.create(data);
     return newCategory;
 }
 

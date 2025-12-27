@@ -12,7 +12,7 @@ const productModel = new mongoose.Schema({
        required: true 
     },
     category: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Category",
         trim: true,
         required: true
@@ -40,7 +40,7 @@ const productModel = new mongoose.Schema({
         unique: true
     }
 
-});
+}, {timestamps: true});
 
 const product = mongoose.model("Product", productModel);
 export default product;

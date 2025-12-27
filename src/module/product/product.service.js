@@ -12,7 +12,7 @@ export const createProductService = async (data) => {
 }
 
 export const viewAllProductService = async () => {
-    const product = await productModel.find();
+    const product = await productModel.find().select("-__v");
 
     if(!product || product.length === 0) {
         throw new Error("Add products to view them");
@@ -22,8 +22,8 @@ export const viewAllProductService = async () => {
 }
 
 export const viewProductService = async (id) => {
-    const product = await productModel.findOne(id);
-    console.log(product);
+    const product = await productModel.findOne({_id: id}).populate("category").select("+name +code +status");
+    console.log(id);
 
     if(!product) {
         throw new Error("Product not found!");

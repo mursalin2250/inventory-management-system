@@ -1,7 +1,6 @@
 import productModel from "./product.model.js";
 
 export const createProductService = async (data) => {
-
     const product = await productModel.findOne({sku: data.sku});
     
     if(product) {
@@ -12,7 +11,7 @@ export const createProductService = async (data) => {
 }
 
 export const viewAllProductService = async () => {
-    const product = await productModel.find().select("-__v");
+    const product = await productModel.find().populate("category", "-_id name code status").select("-__v");
 
     if(!product || product.length === 0) {
         throw new Error("Add products to view them");
@@ -22,8 +21,7 @@ export const viewAllProductService = async () => {
 }
 
 export const viewProductService = async (id) => {
-    const product = await productModel.findOne({_id: id}).populate("category").select("+name +code +status");
-    console.log(id);
+    const product = await productModel.findOne({_id: id}).populate("category", "-_id name code status").select("-__v");
 
     if(!product) {
         throw new Error("Product not found!");
@@ -31,4 +29,5 @@ export const viewProductService = async (id) => {
 
     return product;
 }
+
 

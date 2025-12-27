@@ -1,7 +1,6 @@
 import categoryModel from "./category.model.js";
 
 export const createCategoryService = async (data) => {
-
     const category = await categoryModel.findOne({code: data.code});
     
     if(category) {
@@ -23,7 +22,6 @@ export const viewAllCategoryService = async () => {
 
 export const viewCategoryService = async (id) => {
     const category = await categoryModel.findOne(id);
-    console.log(category);
 
     if(!category) {
         throw new Error("Category not found!");

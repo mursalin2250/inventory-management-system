@@ -6,6 +6,7 @@ import {
     getAllUsersService, 
     getUserService, 
     loginUserService, 
+    logOutUserService, 
     updateUserService 
 } from "./user.service.js";
 
@@ -90,3 +91,12 @@ export const deleteUser = async (req,res) => {
     }
 }
 
+export const logOutUser = async (req,res) => {
+    try {
+        const logOut = await logOutUserService(req.user.id, req.body);
+        req.status(200).json({message: "User log out seccessful!", logOut});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+}

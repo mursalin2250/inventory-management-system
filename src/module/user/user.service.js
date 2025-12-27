@@ -133,3 +133,11 @@ export const deleteUserService = async (user_id, data) => {
 
     return deleteUser;
 }
+
+export const logOutUserService = async (id, data) => {
+    const user = await userModel.findOne({_id: id});
+    if(!user) {
+        throw new Error("User not found!");
+    }
+    
+};

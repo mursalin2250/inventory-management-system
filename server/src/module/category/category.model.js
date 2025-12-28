@@ -16,7 +16,11 @@ const categoryModel = new mongoose.Schema({
         type: String,
         enum: ["active", "inactive"],
         required: true
-    }
+    },
+    products: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Product"
+    }]
 }, {timestamps: true});
 
 const category = mongoose.model("Category", categoryModel);

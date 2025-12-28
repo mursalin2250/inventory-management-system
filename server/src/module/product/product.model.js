@@ -12,7 +12,7 @@ const productModel = new mongoose.Schema({
        required: true 
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "Category",
         trim: true,
         required: true

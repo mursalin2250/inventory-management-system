@@ -21,7 +21,7 @@ export const viewAllCategoryService = async () => {
 }
 
 export const viewCategoryService = async (id) => {
-    const category = await categoryModel.findOne(id);
+    const category = await categoryModel.findOne({_id: id}).populate("products", "-_id name description price stock status sku");
 
     if(!category) {
         throw new Error("Category not found!");

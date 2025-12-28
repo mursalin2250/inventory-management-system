@@ -79,8 +79,7 @@ export const getAllUsersService = async () => {
         delete newUsers.password;
         delete newUsers.refreshtoken;
         delete newUsers.role;
-
-        user[i+1``] = element;
+        user[i+1] = element;
         i++;
     };
     return user;

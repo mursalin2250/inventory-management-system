@@ -16,10 +16,16 @@ export const createUserService = async (data) => {
     const hashedPassword = await hashPassword(password);
     const user = await userModel.create({name, username, email, password: hashedPassword, role});
 
+    const newAccessToken = accessToken(user._id, username, role);
+    const newRefreshToken = refreshToken(user._id);
+
+    user.refreshtoken = newRefreshToken;
+
     const createdUser = user.toObject();
+    
     delete createdUser.password;
     delete createdUser.__v;
-    return createdUser;
+    return {createdUser, newAccessToken};
 }
 
 export const loginUserService = async (data) => {
@@ -40,7 +46,7 @@ export const loginUserService = async (data) => {
     delete newUser.password;
     delete newUser.refreshtoken;
 
-    return {newUser, accessToken: newAccessToken, refreshToken: newRefreshToken};
+    return {user: newUser, accessToken: newAccessToken, refreshToken: newRefreshToken};
 }
 
 export const accessTokenService = async (refreshToken) => {

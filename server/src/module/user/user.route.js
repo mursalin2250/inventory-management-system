@@ -8,7 +8,8 @@ import {
     updateUser, 
     changePassword, 
     getAllUsers, 
-    deleteUser 
+    deleteUser, 
+    forgetPassword
 } from "./user.controller.js";
 
 import { 
@@ -26,6 +27,7 @@ router.get("/", authenticate, authorize, getUser);
 router.get("/all", authenticate, authorizeAdmin, getAllUsers);
 router.put("/", authenticate, updateUser);
 router.post("/change-password", authenticate, changePassword);
+router.post("/forget-password", authenticate, forgetPassword);
 router.delete("/", authenticate, deleteUser);
 
 

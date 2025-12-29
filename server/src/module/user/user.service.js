@@ -1,6 +1,8 @@
+import crypto from "crypto";
 import userModel from "./user.model.js";
 import { comparePassword, hashPassword } from "../../utils/password.js";
 import { accessToken, refreshToken, verifyToken } from "../../utils/jwt.js";
+import { OTP_VALID_TIME_LIMIT } from "../../config/envConfig.js";
 
 export const createUserService = async (data) => {
     const {name, username, email, password, role} = data;
@@ -20,6 +22,7 @@ export const createUserService = async (data) => {
     const newRefreshToken = refreshToken(user._id);
 
     user.refreshtoken = newRefreshToken;
+    user.save();
 
     const createdUser = user.toObject();
     
@@ -74,22 +77,8 @@ export const getUserService = async (data) => {
 }
 
 export const getAllUsersService = async () => {
-    const users = await userModel.find();
-    let user = {};
-    let i = 0;
-    while( i < users.length ) {
-        const element = users[i];
-        const newUsers = element.toObject();
-        
-        delete newUsers.__v;
-        delete newUsers.password;
-        delete newUsers.refreshtoken;
-        delete newUsers.role;
-
-        user[i+1] = element;
-        i++;
-    };
-    return user;
+    const users = await userModel.find().select("-__v -password -refreshtoken -otp -otpExpireTime");
+    return users;
 }
 
 export const updateUserService = async (filter, data) => {
@@ -147,3 +136,20 @@ export const logOutUserService = async (id, data) => {
     }
     
 };
+
+export const forgetPasswordService = async (id) => {
+    const user = await userModel.findOne({_id: id}).select("-password ");
+
+    if(!user) {
+        throw new Error("User not found!");
+    }
+
+    const generateOTP = crypto.randomInt(100000, 1000000).toString();
+    const OTPValidityTime = Date.now() + OTP_VALID_TIME_LIMIT *60 * 1000;
+    user.otp = generateOTP;
+    user.otpExpireTime = OTPValidityTime;
+    user.save();
+
+    return {user};
+}
+

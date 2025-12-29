@@ -4,7 +4,7 @@ function App() {
 
 
 	return (
-		<>	
+		<>
 			<div className="wrapper flex gap-40 justify-center">
 				<div className='flex justify-center items-center '>
 					<svg className='w-3xs' viewBox="0 0 49 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,14 +13,16 @@ function App() {
 				</div>
 
 				<div className='flex flex-col justify-center items-center h-dvh '>
-					<fieldset className="fieldset max-w-full w-md">
-						<legend className="fieldset-legend">Email</legend>
-						<input type="text" className="input" placeholder="Username or email" />
-					</fieldset>
+					<fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+						<legend className="fieldset-legend">Login</legend>
 
-					<fieldset className="fieldset max-w-full w-md">
-						<legend className="fieldset-legend">Password</legend>
+						<label className="label">Email</label>
+						<input type="email" className="input" placeholder="Email" />
+
+						<label className="label">Password</label>
 						<input type="password" className="input" placeholder="Password" />
+
+						<button className="btn btn-neutral mt-4">Login</button>
 					</fieldset>
 
 				</div>

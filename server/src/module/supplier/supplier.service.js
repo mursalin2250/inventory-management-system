@@ -8,7 +8,11 @@ export const createsupplierService = async (data) => {
         throw new Error("Supplier already exists!");
     }
     const supplier = await supplierModel.create({name, contact, email, category,product,type,buyingPrice});
-    const createdSupplier = supplier.toObject();
+
+     const createdSupplier = await supplierModel.findById(supplier._id)
+        .populate('product', 'name -_id')
+        .populate('category', 'name -_id').select('-buyingPrice -__v')
+
     return createdSupplier;
 }
 
@@ -34,7 +38,6 @@ export const getSupplierService = async (data) => {
 
     return supplier.toObject();
 };
-
 
 export const updateSupplierService = async(filter,data)=>{
     const supplier = await supplierModel.findOneAndUpdate({$or:[{name: filter.name},{email: filter.email}]},data,{new:true});

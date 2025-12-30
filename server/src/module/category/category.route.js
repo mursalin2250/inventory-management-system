@@ -4,7 +4,7 @@ import { createCategory, viewAllCategory, viewCategory } from "./category.contro
 const router = express.Router();
 
 router.post("/", createCategory);
-router.get("/", viewAllCategory);
+router.get("/all", viewAllCategory);
 router.get("/", viewCategory);
 
 export default router;

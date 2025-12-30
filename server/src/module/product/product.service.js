@@ -1,4 +1,5 @@
 import productModel from "./product.model.js";
+import categoryModel from "../category/category.model.js";
 
 export const createProductService = async (data) => {
     const product = await productModel.findOne({sku: data.sku});
@@ -7,6 +8,7 @@ export const createProductService = async (data) => {
         throw new Error("Product already exists!");
     }
     const newProduct = await productModel.create(data);
+    await categoryModel.updateOne({_id:newProduct.category}, {$push: {products: newProduct._id}});
     return newProduct;
 }
 

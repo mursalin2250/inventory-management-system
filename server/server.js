@@ -15,7 +15,10 @@ app.get("/", (req,res) => {
 app.use("/api", appRoutes);
 
 
-
+app.use((err, req, res, next) => {
+    console.log(err);
+    res.status(500).json({message: err.message});
+})
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);

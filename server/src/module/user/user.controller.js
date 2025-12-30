@@ -3,6 +3,7 @@ import {
     changePasswordService, 
     createUserService, 
     deleteUserService, 
+    forgetPasswordService, 
     getAllUsersService, 
     getUserService, 
     loginUserService, 
@@ -23,7 +24,7 @@ export const createUser = async (req,res) => {
 export const loginUser = async (req,res) => {
     try {
         const user = await loginUserService(req.body);
-        res.status(200).json({message: "User login successful!", user});
+        res.status(200).json({message: "User login successful!", userInfo: user});
     } catch (error) {
         console.log(error)
         res.status(401).json({message: error.message});
@@ -95,6 +96,16 @@ export const logOutUser = async (req,res) => {
     try {
         const logOut = await logOutUserService(req.user.id, req.body);
         req.status(200).json({message: "User log out seccessful!", logOut});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+}
+
+export const forgetPassword = async (req,res) => {
+    try {
+        const forgetPassword = await forgetPasswordService(req.user.id);
+        res.status(200).json({message: "OTP sent to your email"});
     } catch (error) {
         console.log(error);
         res.status(500).json({message: error.message});

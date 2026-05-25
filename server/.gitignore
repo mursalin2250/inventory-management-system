@@ -1,2 +1,7 @@
 node_modules
+<<<<<<< HEAD
 .env
+=======
+.env
+Inventory Management System - Backend Algorithm & Architecture Documentation
+>>>>>>> 7103fd16d8e6f1bc917a4951486c1e75c9bbdf3c

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+<<<<<<< HEAD
 const userSchema = new mongoose.Schema(
     {
         firstName: {
@@ -50,3 +51,50 @@ const userSchema = new mongoose.Schema(
 const user = mongoose.model("User", userSchema);
 
 export default user;
+=======
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        trim: true,
+        required: true
+    },
+    username: {
+        type: String,
+        unique: true,
+        trim: true,
+        required: true
+    },
+    email: {
+        type: String,
+        unique: true,
+        trim: true,
+        required: true
+    },
+    password: {
+        type: String,
+        trim: true,
+        required:  true
+    },
+    role: {
+        type: String,
+        required: true,
+        enum: ["admin", "user", "manager", "staff"],
+        default: "user"
+    },
+    refreshtoken: {
+        type: String
+    },
+    otp:{
+        type: String
+    },
+    otpExpireTime:{
+        type: Date
+    }
+
+}, {timestamps: true});
+
+const user = mongoose.model("User", userSchema);
+
+export default user;
+ 
+>>>>>>> 7103fd16d8e6f1bc917a4951486c1e75c9bbdf3c

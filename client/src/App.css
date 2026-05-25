@@ -1,0 +1,32 @@
+body {
+	font-family: poppins;
+}
+
+p{
+	line-height: 24px;
+}
+label{
+	color: #666666;
+}
+
+@media (min-width: 426px) and (max-width: 991px){
+	p{
+		line-height: 30px;
+	}
+
+	h1{
+		line-height: 36px;
+	}
+}
+
+@media (max-width: 425px){
+	p{
+		line-height: 24x;
+		font-size: 14px;
+	}
+
+	h1{
+		line-height: 30px;
+		font-size: 22px;
+	}
+}

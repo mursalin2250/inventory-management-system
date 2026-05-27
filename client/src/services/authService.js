@@ -1,18 +1,14 @@
-const signUpUser = async (userData) => {
-    
-    const response = await fetch(
-        "http://localhost:3000/api/v01/user/",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userData)
-        }
-    );
+import axios from "axios";
 
-    const data = await response.json();
-    return data;
+
+const API_URL = "http://localhost:3000/api";
+
+export const signUpUser = async (userData) => {
+    
+    const response = await axios.post(`${API_URL}/v01/user/`, userData);
+
+    console.log("frontend", userData);
+    return response.data;
+    
 };
 
-export default signUpUser;

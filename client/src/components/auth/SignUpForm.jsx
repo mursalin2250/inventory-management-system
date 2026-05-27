@@ -2,7 +2,7 @@ import { useState } from 'react';
 import InputBox from '../ui/InputBox.jsx';
 import Button from '../ui/Button.jsx';
 import Checkbox from '../ui/PasswordCheckBox.jsx';
-import signUpUser from "../../services/authService.js";
+import {signUpUser} from "../../services/authService.js";
 
 const SignUpForm = () => {
     
@@ -26,11 +26,10 @@ const SignUpForm = () => {
             const {confirmPassword, ...userData} = formData;
             const data = await signUpUser(userData);
             console.log(data);
+            console.log({"success": userData})
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
-
-
     }
 
 
@@ -80,7 +79,7 @@ const SignUpForm = () => {
 
                 </div>
                 <div className="btn-wrapper">
-                    <Button classes={isValid && matchPassword && pwdLen ? "bg-[#1591DC]" : "bg-[#dddddd]"} />
+                    <Button text="Create an account" classes={isValid && matchPassword && pwdLen ? "bg-[#1591DC]" : "bg-[#dddddd]"} />
                 </div>
 
             </form>

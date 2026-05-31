@@ -28,7 +28,7 @@ const LogIn = () => {
                             </div>
                             <div className="password-wrapper">
 
-                                <InputBox name='password' label='Your Password' type={showPassword ? "text" : "password"} value={loginFormData.password} onChange={handleChange} />
+                                <InputBox name='password' label='Your Password' type={showPassword ? "text" : "password"} onChange={handleChange} value={loginFormData.password} />
 
                             </div>
                             <div className="password-show-box-wrapper flex flex-col gap-2">
@@ -40,10 +40,20 @@ const LogIn = () => {
                                 </div>
 
                             </div>
-                            <div className="btn-wrapper flex w-auto">
-                                <Button text="Log in" classes={isValid && pwdLen ? "bg-[#1591DC]" : "bg-[#dddddd]"} />
+                            <div className="btn-wrapper w-auto">
+                                <Button text="Log in" classes={`${isValid && pwdLen ? "bg-[#1591DC]" : "bg-[#dddddd]"} w-full`} />
                             </div>
                         </form>
+                    </div>
+                    <div className="signup-btn-wrapper flex flex-col gap-8 w-full max-w-160">
+                        <div className="border-wrapper flex items-center gap-6">
+                            <div className="signup-border w-full h-px bg-gray-300"></div>
+                            <div className="signup-border-text w-full">New to our community</div>
+                            <div className="signup-border w-full h-px bg-gray-300"></div>
+                        </div>
+                        <div className="btn-wrapper w-auto">
+                            <Button text="Create an account" classes= "w-full border text-black!" />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -38,23 +38,23 @@ const SignUpForm = () => {
             <form className='flex flex-col gap-6' onSubmit={handleSubmit}>
                 <div className="name-wrapper flex flex-wrap md:flex-nowrap lg:flex-nowrap gap-4">
 
-                    <InputBox name='firstName' label='First Name' type="text" onChange={handleChange} value={formData.firstName} require="required" />
+                    <InputBox placeholder="First name" name='firstName' label='First Name' type="text" onChange={handleChange} value={formData.firstName} require="required" />
 
-                    <InputBox name='lastName' label='Last Name' type="text" onChange={handleChange} value={formData.lastName} />
+                    <InputBox placeholder="Last name" name='lastName' label='Last Name' type="text" onChange={handleChange} value={formData.lastName} />
                 
                 </div>
                 <div className="email-wrapper">
 
-                    <InputBox name='email' label='Email' type="email" onChange={handleChange} value={formData.email} />
+                    <InputBox placeholder="Your Email" name='email' label='Email' type="email" onChange={handleChange} value={formData.email} />
 
                 </div>
                 <div className="password-wrapper flex flex-col gap-2">
 
                     <div className='flex flex-wrap md:flex-nowrap lg:flex-nowrap gap-4'>
                         
-                        <InputBox name='password' label="Password" type={showPassword ? "text" : "password"} onChange={handleChange} value={formData.password} />
+                        <InputBox placeholder="Password" name='password' label="Password" type={showPassword ? "text" : "password"} onChange={handleChange} value={formData.password} />
 
-                        <InputBox name="confirmPassword" label="Confirm password" type={showPassword ? "text" : "password"} onChange={handleChange} value={formData.confirmPassword} />
+                        <InputBox placeholder="Confirm password" name="confirmPassword" label="Confirm password" type={showPassword ? "text" : "password"} onChange={handleChange} value={formData.confirmPassword} />
 
                     </div>
 

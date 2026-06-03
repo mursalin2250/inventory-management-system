@@ -1,18 +1,9 @@
 import { useState } from 'react';
-import InputBox from '../components/ui/InputBox';
-import Button from '../components/ui/Button';
-import CheckBox from '../components/ui/PasswordCheckBox';
-import { Link } from "react-router-dom";
 import logo from "../assets/logo-vertical.png";
+import {Link} from "react-router-dom";
+import LoginForm from '../components/auth/LoginForm.jsx';
 
 const LogIn = () => {
-
-    const [loginFormData, setLoginFormData] = useState({ email: "", password: "" });
-    const [showPassword, setshowPassword] = useState(false);
-    const isValid = loginFormData.email && loginFormData.password;
-    const pwdLen = loginFormData.password.length >= 8;
-    const handleChange = (e) => { setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value }) }
-
 
     return (
         <div className='main flex items-center justify-center p-6 sm:p-12 md:p-20 lg:p-10'>
@@ -23,7 +14,9 @@ const LogIn = () => {
                         <img src={logo} alt="" />
                     </div>
 
-                    <div className='border border-gray-300 rounded-xl max-w-160 w-full p-8 flex flex-col justify-center items-center gap-12'>
+                    <LoginForm></LoginForm>
+
+                    {/* <div className='border border-gray-300 rounded-xl max-w-160 w-full p-8 flex flex-col justify-center items-center gap-12'>
                         <h1 className='text-[32px]/[32px] font-medium text-[#333333]'>Sign in</h1>
                         <form action="" className='w-full flex flex-col gap-6'>
                             <div className="email-wrapper">
@@ -36,7 +29,7 @@ const LogIn = () => {
                                 <InputBox name='password' label='Your Password' type={showPassword ? "text" : "password"} onChange={handleChange} value={loginFormData.password} />
 
                             </div>
-                            <div className="password-show-box-wrapper flex justify-between gap-2">
+                            <div className="password-show-box-wrapper flex flex-wrap justify-between gap-2">
 
                                 <div className='show-password'>
 
@@ -52,7 +45,7 @@ const LogIn = () => {
                                 <Button text="Log in" classes={`${isValid && pwdLen ? "bg-[#1591DC]" : "bg-[#dddddd]"} w-full`} />
                             </div>
                         </form>
-                    </div>
+                    </div> */}
 
                     <div className="signup-btn-wrapper flex flex-col gap-8 w-full max-w-160">
                         <div className="border-wrapper flex items-center gap-6">

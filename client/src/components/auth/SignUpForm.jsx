@@ -3,6 +3,7 @@ import InputBox from '../ui/InputBox.jsx';
 import Button from '../ui/Button.jsx';
 import Checkbox from '../ui/PasswordCheckBox.jsx';
 import {signUpUser} from "../../services/authService.js";
+import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = () => {
     
@@ -19,14 +20,18 @@ const SignUpForm = () => {
     const pwdLen = formData.password.length >= 8 && formData.confirmPassword.length >= 8;
     const pwdFilled = formData.confirmPassword !== "" && formData.password !== "";
     const handleChange = (e) => { setFormData({...formData, [e.target.name]: e.target.value}) }
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
 
         e.preventDefault();
         try {
             const {confirmPassword, ...userData} = formData;
             const data = await signUpUser(userData);
-            console.log(data);
-            console.log({"success": userData})
+            console.log(data.success);
+            if (data.success){
+                navigate("/");
+            }
+            
         } catch (error) {
             console.error(error);
         }
@@ -79,7 +84,7 @@ const SignUpForm = () => {
 
                 </div>
                 <div className="btn-wrapper">
-                    <Button text="Create an account" classes={isValid && matchPassword && pwdLen ? "bg-[#1591DC]" : "bg-[#dddddd]"} />
+                    <Button type="submit" text="Create an account" classes={isValid && matchPassword && pwdLen ? "bg-[#1591DC]" : "bg-[#dddddd]"} />
                 </div>
 
             </form>

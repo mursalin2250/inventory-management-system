@@ -37,13 +37,13 @@ export const createUserService = async (data) => {
 }
 
 export const loginUserService = async (data) => {
-    const user = await userModel.findOne({$or: [{username: data.username}, {email: data.email}]});
+    const user = await userModel.findOne({email: data.email});
     if (!user) throw new Error("Invalid credentials!"); 
 
-    const password = bcrypt.compare(data.password, user.password);
+    const password = await bcrypt.compare(data.password, user.password);
     if(!password) throw new Error("Invalid credentials!");
 
-    const newAccessToken = accesstoken(user._id, username, role);
+    const newAccessToken = accesstoken(user._id, user.role);
     const newRefreshToken = refreshToken(user._id);
 
     user.refreshToken = newRefreshToken;

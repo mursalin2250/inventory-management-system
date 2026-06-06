@@ -7,9 +7,9 @@ import logoutIcon from "../../assets/logout-icon.png";
 const Navbar = () => {
     return (
         <div>
-            <div className='navbar-section h-screen w-[20%] min-w-55 px-4 py-6 fixed border border-gray-200 shadow-md'>
+            <div className='navbar-section h-screen w-[20%] min-w-55 px-4 py-6 fixed z-9 border-r border-gray-200 shadow-md'>
                 <div className='navbar-wrapper h-full flex flex-col justify-between gap-6'>
-                    <div className='navigation-section'>
+                    <div className='navigation-section flex flex-col gap-4'>
                         <div className="logo-wrapper">
                             <img src={logo} alt="inventra" className='max-w-35' />
                         </div>

@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     allowedHosts: [
-      "8859-103-176-2-81.ngrok-free.app"
+      "padlock-revivable-quintuple.ngrok-free.dev",
+      "localhost:3000"
     ],
   }
 })
